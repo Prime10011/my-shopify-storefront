@@ -1,19 +1,893 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shopify Storefront</title>
-  <style>
-    /* Добавим минимальную стилизацию, чтобы не было голого текста */
-    body { font-family: sans-serif; margin: 0; padding: 0; background: #f7f7f7; }
-    section { padding: 20px; background: white; margin: 40px auto; max-width: 800px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Каталог обуви - Премиум Спортивная Одежда</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#FFD700',secondary:'#000000'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.nav-link {
+position: relative;
+}
+.nav-link::after {
+content: '';
+position: absolute;
+bottom: -4px;
+left: 0;
+width: 0;
+height: 2px;
+background-color: #FFD700;
+transition: width 0.3s ease;
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+width: 100%;
+}
+.product-card {
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-card:hover {
+transform: translateY(-8px);
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+.custom-checkbox {
+position: relative;
+width: 20px;
+height: 20px;
+border: 2px solid #000;
+border-radius: 4px;
+transition: all 0.2s ease;
+cursor: pointer;
+}
+.custom-checkbox.checked {
+background-color: #FFD700;
+border-color: #FFD700;
+}
+.custom-checkbox.checked::after {
+content: '';
+position: absolute;
+top: 2px;
+left: 6px;
+width: 6px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.price-slider {
+height: 4px;
+background-color: #e2e8f0;
+border-radius: 2px;
+position: relative;
+}
+.price-slider-progress {
+position: absolute;
+height: 100%;
+background-color: #FFD700;
+border-radius: 2px;
+}
+.price-slider-thumb {
+width: 16px;
+height: 16px;
+background-color: white;
+border: 2px solid #FFD700;
+border-radius: 50%;
+position: absolute;
+top: 50%;
+transform: translate(-50%, -50%);
+cursor: pointer;
+}
+.view-switch-btn {
+transition: all 0.3s ease;
+}
+.view-switch-btn.active {
+background-color: #FFD700;
+color: black;
+}
+.star-rating i {
+color: #e2e8f0;
+}
+.star-rating i.filled {
+color: #FFD700;
+}
+</style>
 </head>
-<body>
-  <section>
-    <h1>Привет! Это Shopify Storefront</h1>
-    <p>Здесь будет подключение к Storefront API и визуализация товаров.</p>
-  </section>
+<body class="bg-white text-gray-900">
+<!-- Фиксированное меню -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+<div class="container mx-auto px-4">
+<div class="flex items-center justify-between h-16">
+<!-- Логотип -->
+<a href="#" class="font-['Pacifico'] text-2xl text-black">logo</a>
+<!-- Навигация для десктопа -->
+<nav class="hidden md:flex items-center space-x-8">
+<a href="#" class="nav-link text-sm font-medium">Главная</a>
+<div class="relative group">
+<a href="#" class="nav-link active text-sm font-medium flex items-center">
+Каталог
+<div class="w-4 h-4 flex items-center justify-center ml-1">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</a>
+<div class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+<a href="https://readdy.ai/home/a29210a0-edd6-4263-8b01-9a85cfecfa59/8ed34574-36cd-4117-84a9-68b9b38f5b85" data-readdy="true" class="block px-4 py-2 text-sm hover:bg-gray-50 font-medium text-primary">Обувь</a>
+<a href="#" class="block px-4 py-2 text-sm hover:bg-gray-50">Одежда</a>
+</div>
+</div>
+<a href="#" class="nav-link text-sm font-medium">Эксклюзивы</a>
+<a href="#" class="nav-link text-sm font-medium">Быстрая доставка</a>
+<a href="#" class="nav-link text-sm font-medium">О нас</a>
+<a href="#" class="nav-link text-sm font-medium">Контакты</a>
+</nav>
+<!-- Иконки -->
+<div class="flex items-center space-x-4">
+<button class="w-8 h-8 flex items-center justify-center">
+<i class="ri-search-line text-xl"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center relative">
+<i class="ri-shopping-bag-line text-xl"></i>
+<span class="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full flex items-center justify-center text-xs font-medium text-black">3</span>
+</button>
+<button class="md:hidden w-8 h-8 flex items-center justify-center">
+<i class="ri-menu-line text-xl"></i>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Мобильное меню -->
+<div class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden">
+<div class="absolute right-0 top-0 bottom-0 w-64 bg-white p-4">
+<div class="flex justify-between items-center mb-6">
+<a href="#" class="font-['Pacifico'] text-xl text-black">logo</a>
+<button class="w-8 h-8 flex items-center justify-center">
+<i class="ri-close-line text-xl"></i>
+</button>
+</div>
+<nav class="flex flex-col space-y-4">
+<a href="#" class="text-sm font-medium py-2 border-b border-gray-100">Главная</a>
+<div class="py-2 border-b border-gray-100">
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium text-primary">Каталог</span>
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+<div class="mt-2 pl-4">
+<a href="https://readdy.ai/home/a29210a0-edd6-4263-8b01-9a85cfecfa59/8ed34574-36cd-4117-84a9-68b9b38f5b85" data-readdy="true" class="block py-2 text-sm font-medium text-primary">Обувь</a>
+<a href="#" class="block py-2 text-sm">Одежда</a>
+</div>
+</div>
+<a href="#" class="text-sm font-medium py-2 border-b border-gray-100">Эксклюзивы</a>
+<a href="#" class="text-sm font-medium py-2 border-b border-gray-100">Быстрая доставка</a>
+<a href="#" class="text-sm font-medium py-2 border-b border-gray-100">О нас</a>
+<a href="#" class="text-sm font-medium py-2 border-b border-gray-100">Контакты</a>
+</nav>
+</div>
+</div>
+<!-- Основной контент -->
+<main class="pt-16">
+<!-- Хлебные крошки -->
+<div class="bg-gray-50 py-3 border-b border-gray-100">
+<div class="container mx-auto px-4">
+<div class="flex items-center text-sm text-gray-500">
+<a href="#" class="hover:text-black transition">Главная</a>
+<div class="w-4 h-4 flex items-center justify-center mx-1">
+<i class="ri-arrow-right-s-line"></i>
+</div>
+<a href="#" class="hover:text-black transition">Каталог</a>
+<div class="w-4 h-4 flex items-center justify-center mx-1">
+<i class="ri-arrow-right-s-line"></i>
+</div>
+<span class="font-medium text-black">Обувь</span>
+</div>
+</div>
+</div>
+<!-- Заголовок каталога -->
+<div class="container mx-auto px-4 py-8">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+<div>
+<h1 class="text-3xl font-bold">Каталог обуви</h1>
+<p class="text-gray-500 mt-2">Найдено 128 товаров</p>
+</div>
+<a href="https://readdy.ai/home/a29210a0-edd6-4263-8b01-9a85cfecfa59/8ed34574-36cd-4117-84a9-68b9b38f5b85" data-readdy="true" class="flex items-center text-sm font-medium mt-4 md:mt-0">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-arrow-left-line"></i>
+</div>
+Вернуться на главную
+</a>
+</div>
+</div>
+<!-- Каталог с фильтрами -->
+<div class="container mx-auto px-4 pb-16">
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- Фильтры (боковая панель) -->
+<div class="lg:w-1/4">
+<div class="sticky top-24 bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+<!-- Заголовок фильтров -->
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-semibold">Фильтры</h3>
+<button class="text-sm text-gray-500 hover:text-black transition">Сбросить все</button>
+</div>
+<!-- Фильтр по брендам -->
+<div class="mb-8">
+<h4 class="font-medium mb-4">Бренды</h4>
+<div class="space-y-3">
+<div class="flex items-center">
+<div class="custom-checkbox checked mr-3" data-brand="nike"></div>
+<label class="text-sm cursor-pointer">Nike (42)</label>
+</div>
+<div class="flex items-center">
+<div class="custom-checkbox mr-3" data-brand="adidas"></div>
+<label class="text-sm cursor-pointer">Adidas (38)</label>
+</div>
+<div class="flex items-center">
+<div class="custom-checkbox mr-3" data-brand="puma"></div>
+<label class="text-sm cursor-pointer">Puma (24)</label>
+</div>
+<div class="flex items-center">
+<div class="custom-checkbox mr-3" data-brand="reebok"></div>
+<label class="text-sm cursor-pointer">Reebok (19)</label>
+</div>
+<div class="flex items-center">
+<div class="custom-checkbox mr-3" data-brand="asics"></div>
+<label class="text-sm cursor-pointer">Asics (15)</label>
+</div>
+</div>
+<button class="text-sm text-primary font-medium mt-3 flex items-center">
+Показать все
+<div class="w-4 h-4 flex items-center justify-center ml-1">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</button>
+</div>
+<!-- Фильтр по размерам -->
+<div class="mb-8">
+<h4 class="font-medium mb-4">Размеры</h4>
+<div class="grid grid-cols-4 gap-2">
+<button class="text-sm border border-gray-200 rounded py-2 hover:border-primary transition">36</button>
+<button class="text-sm border border-gray-200 rounded py-2 hover:border-primary transition">37</button>
+<button class="text-sm border border-gray-200 rounded py-2 hover:border-primary transition">38</button>
+<button class="text-sm border border-gray-200 rounded py-2 hover:border-primary transition">39</button>
+<button class="text-sm border border-gray-200 rounded py-2 hover:border-primary transition">40</button>
+<button class="text-sm border border-primary bg-primary bg-opacity-10 rounded py-2">41</button>
+<button class="text-sm border border-gray-200 rounded py-2 hover:border-primary transition">42</button>
+<button class="text-sm border border-gray-200 rounded py-2 hover:border-primary transition">43</button>
+<button class="text-sm border border-gray-200 rounded py-2 hover:border-primary transition">44</button>
+<button class="text-sm border border-gray-200 rounded py-2 hover:border-primary transition">45</button>
+<button class="text-sm border border-gray-200 rounded py-2 hover:border-primary transition">46</button>
+<button class="text-sm border border-gray-200 rounded py-2 hover:border-primary transition">47</button>
+</div>
+</div>
+<!-- Фильтр по цене -->
+<div class="mb-8">
+<h4 class="font-medium mb-4">Цена, ₽</h4>
+<div class="flex items-center justify-between mb-4">
+<div class="w-[45%]">
+<input type="number" value="3990" class="w-full text-sm border border-gray-200 rounded px-3 py-2 focus:outline-none focus:border-primary">
+</div>
+<span class="text-gray-400">—</span>
+<div class="w-[45%]">
+<input type="number" value="24990" class="w-full text-sm border border-gray-200 rounded px-3 py-2 focus:outline-none focus:border-primary">
+</div>
+</div>
+<div class="relative h-4 mb-2">
+<div class="price-slider w-full absolute top-1/2 transform -translate-y-1/2">
+<div class="price-slider-progress" style="left: 15%; right: 20%"></div>
+<div class="price-slider-thumb" style="left: 15%"></div>
+<div class="price-slider-thumb" style="left: 80%"></div>
+</div>
+</div>
+<div class="flex justify-between text-xs text-gray-500">
+<span>3 990 ₽</span>
+<span>24 990 ₽</span>
+</div>
+</div>
+<!-- Фильтр по типу обуви -->
+<div class="mb-8">
+<h4 class="font-medium mb-4">Тип обуви</h4>
+<div class="space-y-3">
+<div class="flex items-center">
+<div class="custom-checkbox checked mr-3" data-type="sneakers"></div>
+<label class="text-sm cursor-pointer">Кроссовки (76)</label>
+</div>
+<div class="flex items-center">
+<div class="custom-checkbox mr-3" data-type="boots"></div>
+<label class="text-sm cursor-pointer">Ботинки (24)</label>
+</div>
+<div class="flex items-center">
+<div class="custom-checkbox mr-3" data-type="sandals"></div>
+<label class="text-sm cursor-pointer">Сандалии (18)</label>
+</div>
+<div class="flex items-center">
+<div class="custom-checkbox mr-3" data-type="slippers"></div>
+<label class="text-sm cursor-pointer">Шлепанцы (10)</label>
+</div>
+</div>
+</div>
+<!-- Применить фильтры (мобильная версия) -->
+<button class="w-full bg-primary text-black py-3 font-medium !rounded-button whitespace-nowrap lg:hidden">Применить фильтры</button>
+</div>
+</div>
+<!-- Основной контент каталога -->
+<div class="lg:w-3/4">
+<!-- Сортировка и переключение вида -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 p-4 mb-6">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<div class="flex items-center">
+<span class="text-sm mr-3">Сортировать:</span>
+<div class="relative">
+<button class="flex items-center text-sm border border-gray-200 rounded px-4 py-2 focus:outline-none">
+По популярности
+<div class="w-4 h-4 flex items-center justify-center ml-2">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</button>
+<div class="absolute left-0 mt-1 w-48 bg-white shadow-lg rounded opacity-0 invisible z-10">
+<button class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 font-medium">По популярности</button>
+<button class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-50">По новизне</button>
+<button class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-50">По возрастанию цены</button>
+<button class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-50">По убыванию цены</button>
+</div>
+</div>
+</div>
+<div class="flex items-center space-x-2">
+<button class="view-switch-btn active w-10 h-10 flex items-center justify-center rounded" data-view="grid">
+<i class="ri-layout-grid-line text-lg"></i>
+</button>
+<button class="view-switch-btn w-10 h-10 flex items-center justify-center rounded" data-view="list">
+<i class="ri-list-check-2 text-lg"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Сетка товаров -->
+<div class="grid-view">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Товар 1 -->
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=Nike%2520Air%2520Zoom%2520Pegasus%252038%2520running%2520shoes%252C%2520white%2520background%252C%2520professional%2520product%2520photography%252C%2520high-end%2520athletic%2520footwear%252C%2520elegant%2520presentation%252C%2520high%2520resolution%252C%2520commercial%2520quality&width=500&height=500&seq=1&orientation=squarish" alt="Nike Air Zoom Pegasus 38" class="w-full h-64 object-cover object-top">
+<button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm">
+<i class="ri-heart-line text-lg"></i>
+</button>
+</div>
+<div class="p-6">
+<div class="text-sm text-gray-500 mb-1">Nike</div>
+<h3 class="text-lg font-semibold mb-2">Air Zoom Pegasus 38</h3>
+<div class="flex justify-between items-center mb-4">
+<div class="text-lg font-bold text-primary">12 990 ₽</div>
+<div class="star-rating flex">
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-half-fill filled"></i>
+</div>
+</div>
+<button class="w-full bg-black text-white py-3 font-medium !rounded-button hover:bg-gray-900 transition whitespace-nowrap add-to-cart-btn">Добавить в корзину</button>
+</div>
+</div>
+<!-- Товар 2 -->
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=Adidas%2520Ultraboost%252022%2520premium%2520running%2520shoes%252C%2520white%2520background%252C%2520professional%2520product%2520photography%252C%2520high-end%2520athletic%2520footwear%252C%2520elegant%2520presentation%252C%2520high%2520resolution%252C%2520commercial%2520quality&width=500&height=500&seq=2&orientation=squarish" alt="Adidas Ultraboost 22" class="w-full h-64 object-cover object-top">
+<button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm">
+<i class="ri-heart-line text-lg"></i>
+</button>
+<div class="absolute top-4 left-4 bg-primary text-black text-xs font-medium px-2 py-1 rounded">Новинка</div>
+</div>
+<div class="p-6">
+<div class="text-sm text-gray-500 mb-1">Adidas</div>
+<h3 class="text-lg font-semibold mb-2">Ultraboost 22</h3>
+<div class="flex justify-between items-center mb-4">
+<div class="text-lg font-bold text-primary">16 990 ₽</div>
+<div class="star-rating flex">
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+</div>
+</div>
+<button class="w-full bg-black text-white py-3 font-medium !rounded-button hover:bg-gray-900 transition whitespace-nowrap add-to-cart-btn">Добавить в корзину</button>
+</div>
+</div>
+<!-- Товар 3 -->
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=Puma%2520RS-X%2520Reinvention%2520sneakers%252C%2520white%2520background%252C%2520professional%2520product%2520photography%252C%2520high-end%2520athletic%2520footwear%252C%2520elegant%2520presentation%252C%2520high%2520resolution%252C%2520commercial%2520quality&width=500&height=500&seq=3&orientation=squarish" alt="Puma RS-X Reinvention" class="w-full h-64 object-cover object-top">
+<button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm">
+<i class="ri-heart-line text-lg"></i>
+</button>
+</div>
+<div class="p-6">
+<div class="text-sm text-gray-500 mb-1">Puma</div>
+<h3 class="text-lg font-semibold mb-2">RS-X Reinvention</h3>
+<div class="flex justify-between items-center mb-4">
+<div class="text-lg font-bold text-primary">11 490 ₽</div>
+<div class="star-rating flex">
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-line"></i>
+</div>
+</div>
+<button class="w-full bg-black text-white py-3 font-medium !rounded-button hover:bg-gray-900 transition whitespace-nowrap add-to-cart-btn">Добавить в корзину</button>
+</div>
+</div>
+<!-- Товар 4 -->
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=Reebok%2520Classic%2520Leather%2520sneakers%252C%2520white%2520background%252C%2520professional%2520product%2520photography%252C%2520high-end%2520athletic%2520footwear%252C%2520elegant%2520presentation%252C%2520high%2520resolution%252C%2520commercial%2520quality&width=500&height=500&seq=4&orientation=squarish" alt="Reebok Classic Leather" class="w-full h-64 object-cover object-top">
+<button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm">
+<i class="ri-heart-line text-lg"></i>
+</button>
+<div class="absolute top-4 left-4 bg-red-500 text-white text-xs font-medium px-2 py-1 rounded">-20%</div>
+</div>
+<div class="p-6">
+<div class="text-sm text-gray-500 mb-1">Reebok</div>
+<h3 class="text-lg font-semibold mb-2">Classic Leather</h3>
+<div class="flex justify-between items-center mb-4">
+<div class="flex items-center">
+<div class="text-lg font-bold text-primary mr-2">7 990 ₽</div>
+<div class="text-sm text-gray-400 line-through">9 990 ₽</div>
+</div>
+<div class="star-rating flex">
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-line"></i>
+</div>
+</div>
+<button class="w-full bg-black text-white py-3 font-medium !rounded-button hover:bg-gray-900 transition whitespace-nowrap add-to-cart-btn">Добавить в корзину</button>
+</div>
+</div>
+<!-- Товар 5 -->
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=Asics%2520Gel-Kayano%252028%2520running%2520shoes%252C%2520white%2520background%252C%2520professional%2520product%2520photography%252C%2520high-end%2520athletic%2520footwear%252C%2520elegant%2520presentation%252C%2520high%2520resolution%252C%2520commercial%2520quality&width=500&height=500&seq=5&orientation=squarish" alt="Asics Gel-Kayano 28" class="w-full h-64 object-cover object-top">
+<button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm">
+<i class="ri-heart-line text-lg"></i>
+</button>
+</div>
+<div class="p-6">
+<div class="text-sm text-gray-500 mb-1">Asics</div>
+<h3 class="text-lg font-semibold mb-2">Gel-Kayano 28</h3>
+<div class="flex justify-between items-center mb-4">
+<div class="text-lg font-bold text-primary">14 990 ₽</div>
+<div class="star-rating flex">
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-half-fill filled"></i>
+</div>
+</div>
+<button class="w-full bg-black text-white py-3 font-medium !rounded-button hover:bg-gray-900 transition whitespace-nowrap add-to-cart-btn">Добавить в корзину</button>
+</div>
+</div>
+<!-- Товар 6 -->
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=Nike%2520Air%2520Force%25201%2520white%2520sneakers%252C%2520white%2520background%252C%2520professional%2520product%2520photography%252C%2520high-end%2520athletic%2520footwear%252C%2520elegant%2520presentation%252C%2520high%2520resolution%252C%2520commercial%2520quality&width=500&height=500&seq=6&orientation=squarish" alt="Nike Air Force 1" class="w-full h-64 object-cover object-top">
+<button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm">
+<i class="ri-heart-line text-lg"></i>
+</button>
+<div class="absolute top-4 left-4 bg-primary text-black text-xs font-medium px-2 py-1 rounded">Хит продаж</div>
+</div>
+<div class="p-6">
+<div class="text-sm text-gray-500 mb-1">Nike</div>
+<h3 class="text-lg font-semibold mb-2">Air Force 1</h3>
+<div class="flex justify-between items-center mb-4">
+<div class="text-lg font-bold text-primary">10 990 ₽</div>
+<div class="star-rating flex">
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+</div>
+</div>
+<button class="w-full bg-black text-white py-3 font-medium !rounded-button hover:bg-gray-900 transition whitespace-nowrap add-to-cart-btn">Добавить в корзину</button>
+</div>
+</div>
+<!-- Товар 7 -->
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=Adidas%2520Samba%2520OG%2520sneakers%252C%2520white%2520background%252C%2520professional%2520product%2520photography%252C%2520high-end%2520athletic%2520footwear%252C%2520elegant%2520presentation%252C%2520high%2520resolution%252C%2520commercial%2520quality&width=500&height=500&seq=7&orientation=squarish" alt="Adidas Samba OG" class="w-full h-64 object-cover object-top">
+<button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm">
+<i class="ri-heart-line text-lg"></i>
+</button>
+</div>
+<div class="p-6">
+<div class="text-sm text-gray-500 mb-1">Adidas</div>
+<h3 class="text-lg font-semibold mb-2">Samba OG</h3>
+<div class="flex justify-between items-center mb-4">
+<div class="text-lg font-bold text-primary">9 490 ₽</div>
+<div class="star-rating flex">
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-line"></i>
+</div>
+</div>
+<button class="w-full bg-black text-white py-3 font-medium !rounded-button hover:bg-gray-900 transition whitespace-nowrap add-to-cart-btn">Добавить в корзину</button>
+</div>
+</div>
+<!-- Товар 8 -->
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=Puma%2520Suede%2520Classic%2520XXI%2520sneakers%252C%2520white%2520background%252C%2520professional%2520product%2520photography%252C%2520high-end%2520athletic%2520footwear%252C%2520elegant%2520presentation%252C%2520high%2520resolution%252C%2520commercial%2520quality&width=500&height=500&seq=8&orientation=squarish" alt="Puma Suede Classic XXI" class="w-full h-64 object-cover object-top">
+<button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm">
+<i class="ri-heart-line text-lg"></i>
+</button>
+</div>
+<div class="p-6">
+<div class="text-sm text-gray-500 mb-1">Puma</div>
+<h3 class="text-lg font-semibold mb-2">Suede Classic XXI</h3>
+<div class="flex justify-between items-center mb-4">
+<div class="text-lg font-bold text-primary">8 990 ₽</div>
+<div class="star-rating flex">
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-line"></i>
+</div>
+</div>
+<button class="w-full bg-black text-white py-3 font-medium !rounded-button hover:bg-gray-900 transition whitespace-nowrap add-to-cart-btn">Добавить в корзину</button>
+</div>
+</div>
+<!-- Товар 9 -->
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=New%2520Balance%2520574%2520sneakers%252C%2520white%2520background%252C%2520professional%2520product%2520photography%252C%2520high-end%2520athletic%2520footwear%252C%2520elegant%2520presentation%252C%2520high%2520resolution%252C%2520commercial%2520quality&width=500&height=500&seq=9&orientation=squarish" alt="New Balance 574" class="w-full h-64 object-cover object-top">
+<button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm">
+<i class="ri-heart-line text-lg"></i>
+</button>
+</div>
+<div class="p-6">
+<div class="text-sm text-gray-500 mb-1">New Balance</div>
+<h3 class="text-lg font-semibold mb-2">574 Classic</h3>
+<div class="flex justify-between items-center mb-4">
+<div class="text-lg font-bold text-primary">12 490 ₽</div>
+<div class="star-rating flex">
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-half-fill filled"></i>
+</div>
+</div>
+<button class="w-full bg-black text-white py-3 font-medium !rounded-button hover:bg-gray-900 transition whitespace-nowrap add-to-cart-btn">Добавить в корзину</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Список товаров (скрыт по умолчанию) -->
+<div class="list-view hidden">
+<div class="space-y-6">
+<!-- Товар 1 (список) -->
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="flex flex-col md:flex-row">
+<div class="relative md:w-1/3">
+<img src="https://readdy.ai/api/search-image?query=Nike%2520Air%2520Zoom%2520Pegasus%252038%2520running%2520shoes%252C%2520white%2520background%252C%2520professional%2520product%2520photography%252C%2520high-end%2520athletic%2520footwear%252C%2520elegant%2520presentation%252C%2520high%2520resolution%252C%2520commercial%2520quality&width=500&height=500&seq=1&orientation=squarish" alt="Nike Air Zoom Pegasus 38" class="w-full h-64 md:h-full object-cover object-top">
+</div>
+<div class="p-6 md:w-2/3">
+<div class="flex justify-between mb-3">
+<div>
+<div class="text-sm text-gray-500 mb-1">Nike</div>
+<h3 class="text-xl font-semibold">Air Zoom Pegasus 38</h3>
+</div>
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full">
+<i class="ri-heart-line text-lg"></i>
+</button>
+</div>
+<div class="star-rating flex mb-3">
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-half-fill filled"></i>
+<span class="text-sm text-gray-500 ml-2">128 отзывов</span>
+</div>
+<p class="text-gray-600 mb-4">Легкие и отзывчивые беговые кроссовки с амортизацией Nike Air Zoom. Идеально подходят для ежедневных пробежек на короткие и средние дистанции.</p>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="text-xs bg-gray-100 px-2 py-1 rounded">Беговые</span>
+<span class="text-xs bg-gray-100 px-2 py-1 rounded">Амортизация</span>
+<span class="text-xs bg-gray-100 px-2 py-1 rounded">Дышащие</span>
+</div>
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<div class="text-xl font-bold text-primary">12 990 ₽</div>
+<button class="bg-black text-white px-6 py-3 font-medium !rounded-button hover:bg-gray-900 transition whitespace-nowrap add-to-cart-btn">Добавить в корзину</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Товар 2 (список) -->
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="flex flex-col md:flex-row">
+<div class="relative md:w-1/3">
+<img src="https://readdy.ai/api/search-image?query=Adidas%2520Ultraboost%252022%2520premium%2520running%2520shoes%252C%2520white%2520background%252C%2520professional%2520product%2520photography%252C%2520high-end%2520athletic%2520footwear%252C%2520elegant%2520presentation%252C%2520high%2520resolution%252C%2520commercial%2520quality&width=500&height=500&seq=2&orientation=squarish" alt="Adidas Ultraboost 22" class="w-full h-64 md:h-full object-cover object-top">
+<div class="absolute top-4 left-4 bg-primary text-black text-xs font-medium px-2 py-1 rounded">Новинка</div>
+</div>
+<div class="p-6 md:w-2/3">
+<div class="flex justify-between mb-3">
+<div>
+<div class="text-sm text-gray-500 mb-1">Adidas</div>
+<h3 class="text-xl font-semibold">Ultraboost 22</h3>
+</div>
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full">
+<i class="ri-heart-line text-lg"></i>
+</button>
+</div>
+<div class="star-rating flex mb-3">
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<span class="text-sm text-gray-500 ml-2">96 отзывов</span>
+</div>
+<p class="text-gray-600 mb-4">Премиальные беговые кроссовки с технологией BOOST для максимальной амортизации и возврата энергии. Адаптивный верх Primeknit обеспечивает идеальную посадку.</p>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="text-xs bg-gray-100 px-2 py-1 rounded">Беговые</span>
+<span class="text-xs bg-gray-100 px-2 py-1 rounded">BOOST</span>
+<span class="text-xs bg-gray-100 px-2 py-1 rounded">Primeknit</span>
+</div>
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<div class="text-xl font-bold text-primary">16 990 ₽</div>
+<button class="bg-black text-white px-6 py-3 font-medium !rounded-button hover:bg-gray-900 transition whitespace-nowrap add-to-cart-btn">Добавить в корзину</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Товар 3 (список) -->
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+<div class="flex flex-col md:flex-row">
+<div class="relative md:w-1/3">
+<img src="https://readdy.ai/api/search-image?query=Puma%2520RS-X%2520Reinvention%2520sneakers%252C%2520white%2520background%252C%2520professional%2520product%2520photography%252C%2520high-end%2520athletic%2520footwear%252C%2520elegant%2520presentation%252C%2520high%2520resolution%252C%2520commercial%2520quality&width=500&height=500&seq=3&orientation=squarish" alt="Puma RS-X Reinvention" class="w-full h-64 md:h-full object-cover object-top">
+</div>
+<div class="p-6 md:w-2/3">
+<div class="flex justify-between mb-3">
+<div>
+<div class="text-sm text-gray-500 mb-1">Puma</div>
+<h3 class="text-xl font-semibold">RS-X Reinvention</h3>
+</div>
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full">
+<i class="ri-heart-line text-lg"></i>
+</button>
+</div>
+<div class="star-rating flex mb-3">
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-fill filled"></i>
+<i class="ri-star-line"></i>
+<span class="text-sm text-gray-500 ml-2">74 отзыва</span>
+</div>
+<p class="text-gray-600 mb-4">Стильные кроссовки в стиле ретро с современными технологиями. Массивная подошва с технологией Running System обеспечивает стабильность и комфорт.</p>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="text-xs bg-gray-100 px-2 py-1 rounded">Lifestyle</span>
+<span class="text-xs bg-gray-100 px-2 py-1 rounded">Ретро</span>
+<span class="text-xs bg-gray-100 px-2 py-1 rounded">Массивные</span>
+</div>
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<div class="text-xl font-bold text-primary">11 490 ₽</div>
+<button class="bg-black text-white px-6 py-3 font-medium !rounded-button hover:bg-gray-900 transition whitespace-nowrap add-to-cart-btn">Добавить в корзину</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Пагинация -->
+<div class="flex justify-between items-center mt-10">
+<button class="flex items-center text-sm font-medium text-gray-500 hover:text-black transition">
+<div class="w-5 h-5 flex items-center justify-center mr-1">
+<i class="ri-arrow-left-s-line"></i>
+</div>
+Предыдущая
+</button>
+<div class="flex items-center space-x-1">
+<button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-black font-medium">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-gray-100">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-gray-100">3</button>
+<span class="w-8 h-8 flex items-center justify-center">...</span>
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-gray-100">8</button>
+</div>
+<button class="flex items-center text-sm font-medium hover:text-black transition">
+Следующая
+<div class="w-5 h-5 flex items-center justify-center ml-1">
+<i class="ri-arrow-right-s-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Футер -->
+<footer class="bg-white pt-16 pb-8 border-t border-gray-100">
+<div class="container mx-auto px-4">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+<!-- Логотип и описание -->
+<div class="lg:col-span-2">
+<a href="#" class="font-['Pacifico'] text-2xl text-black inline-block mb-4">logo</a>
+<p class="text-gray-600 mb-6">Премиальная спортивная одежда и обувь мировых брендов. Мы предлагаем только оригинальные товары с гарантией подлинности.</p>
+<div class="flex space-x-4">
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full hover:bg-primary hover:text-black transition">
+<i class="ri-instagram-line"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full hover:bg-primary hover:text-black transition">
+<i class="ri-facebook-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full hover:bg-primary hover:text-black transition">
+<i class="ri-twitter-x-line"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full hover:bg-primary hover:text-black transition">
+<i class="ri-telegram-line"></i>
+</a>
+</div>
+</div>
+<!-- Навигация -->
+<div>
+<h4 class="text-lg font-semibold mb-4">Навигация</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-600 hover:text-black transition">Главная</a></li>
+<li><a href="#" class="text-gray-600 hover:text-black transition">Каталог</a></li>
+<li><a href="#" class="text-gray-600 hover:text-black transition">Эксклюзивы</a></li>
+<li><a href="#" class="text-gray-600 hover:text-black transition">Быстрая доставка</a></li>
+<li><a href="#" class="text-gray-600 hover:text-black transition">О нас</a></li>
+<li><a href="#" class="text-gray-600 hover:text-black transition">Контакты</a></li>
+</ul>
+</div>
+<!-- Категории -->
+<div>
+<h4 class="text-lg font-semibold mb-4">Категории</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-600 hover:text-black transition">Обувь</a></li>
+<li><a href="#" class="text-gray-600 hover:text-black transition">Одежда</a></li>
+<li><a href="#" class="text-gray-600 hover:text-black transition">Новинки</a></li>
+<li><a href="#" class="text-gray-600 hover:text-black transition">Распродажа</a></li>
+</ul>
+</div>
+<!-- Контакты -->
+<div>
+<h4 class="text-lg font-semibold mb-4">Контакты</h4>
+<ul class="space-y-2">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center mt-1 mr-2">
+<i class="ri-map-pin-line text-primary"></i>
+</div>
+<span class="text-gray-600">Москва, ул. Тверская, 1</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center mt-1 mr-2">
+<i class="ri-phone-line text-primary"></i>
+</div>
+<span class="text-gray-600">+7 (495) 123-45-67</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center mt-1 mr-2">
+<i class="ri-mail-line text-primary"></i>
+</div>
+<span class="text-gray-600">info@sportstore.ru</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center mt-1 mr-2">
+<i class="ri-time-line text-primary"></i>
+</div>
+<span class="text-gray-600">Пн-Вс: 10:00 - 22:00</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="pt-8 border-t border-gray-100">
+<div class="flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 SportStore. Все права защищены.</p>
+<div class="flex items-center space-x-4">
+<a href="#" class="text-gray-500 text-sm hover:text-black transition">Политика конфиденциальности</a>
+<a href="#" class="text-gray-500 text-sm hover:text-black transition">Условия использования</a>
+<div class="flex items-center space-x-2">
+<i class="ri-visa-line text-xl"></i>
+<i class="ri-mastercard-line text-xl"></i>
+<i class="ri-paypal-line text-xl"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// Мобильное меню
+const menuButton = document.querySelector('.ri-menu-line').parentElement;
+const closeButton = document.querySelector('.ri-close-line').parentElement;
+const mobileMenu = document.querySelector('.fixed.inset-0.bg-black');
+menuButton.addEventListener('click', () => {
+mobileMenu.classList.remove('hidden');
+});
+closeButton.addEventListener('click', () => {
+mobileMenu.classList.add('hidden');
+});
+});
+document.addEventListener('DOMContentLoaded', function() {
+// Переключение вида отображения (сетка/список)
+const gridViewBtn = document.querySelector('[data-view="grid"]');
+const listViewBtn = document.querySelector('[data-view="list"]');
+const gridView = document.querySelector('.grid-view');
+const listView = document.querySelector('.list-view');
+gridViewBtn.addEventListener('click', () => {
+gridView.classList.remove('hidden');
+listView.classList.add('hidden');
+gridViewBtn.classList.add('active');
+listViewBtn.classList.remove('active');
+});
+listViewBtn.addEventListener('click', () => {
+gridView.classList.add('hidden');
+listView.classList.remove('hidden');
+gridViewBtn.classList.remove('active');
+listViewBtn.classList.add('active');
+});
+});
+document.addEventListener('DOMContentLoaded', function() {
+// Избранное
+const heartIcons = document.querySelectorAll('.ri-heart-line');
+heartIcons.forEach(icon => {
+icon.addEventListener('click', (e) => {
+e.preventDefault();
+e.stopPropagation();
+if (icon.classList.contains('ri-heart-line')) {
+icon.classList.remove('ri-heart-line');
+icon.classList.add('ri-heart-fill');
+icon.classList.add('text-primary');
+} else {
+icon.classList.add('ri-heart-line');
+icon.classList.remove('ri-heart-fill');
+icon.classList.remove('text-primary');
+}
+});
+});
+});
+document.addEventListener('DOMContentLoaded', function() {
+// Чекбоксы в фильтрах
+const checkboxes = document.querySelectorAll('.custom-checkbox');
+checkboxes.forEach(checkbox => {
+checkbox.addEventListener('click', () => {
+checkbox.classList.toggle('checked');
+});
+});
+
+// Добавление в корзину
+const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+addToCartButtons.forEach(button => {
+button.addEventListener('click', function() {
+this.classList.remove('bg-black', 'hover:bg-gray-900');
+this.classList.add('bg-green-500', 'hover:bg-green-600');
+this.innerHTML = '<i class="ri-check-line mr-2"></i>В корзине';
+});
+});
+});
+</script>
 </body>
 </html>
